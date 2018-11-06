@@ -12,7 +12,7 @@ markupsafe==1.0
 maxminddb==1.4.1
 psutil==5.4.6
 pytz==2018.5
-requests==2.19.1
+requests==2.20.0
 six==1.11.0
 urllib3==1.23
 werkzeug==0.14.1
