@@ -1,4 +1,4 @@
-# py_attack_map
+# Py Attack Map
 
 > 本项目只支持 Python3.6+ 版本
 
@@ -75,6 +75,7 @@ auth.log 日志位于 /var/log/auth.log , gunicorn 绑定 6789端口,使用 4 �
 gunicorn -b 0.0.0.0:6789 -w 4 --daemon 'py_attack_map:gunicornApp(file="/var/log/auth.log")'
 ```
 
+详细 gunicorn 配置参考: [http://docs.gunicorn.org/en/stable/settings.html](http://docs.gunicorn.org/en/stable/settings.html)
 
 浏览器访问 `http://127.0.0.1:6789/attack_map_view`,默认`6789`端口；
 
@@ -85,8 +86,8 @@ gunicorn -b 0.0.0.0:6789 -w 4 --daemon 'py_attack_map:gunicornApp(file="/var/log
 
 ### 4.实现
 
-1. `MapBox` 地图实现。 因为 Google Map API 现在收费。
+* `MapBox` 地图实现。 因为 Google Map API 现在收费。
 
-2. `GeoIp2` IP 地址精简数据库。
+* `GeoIp2` IP 地址精简数据库。
 
-3. 通过 Linux 命令统计 `auth.log` 日志, 实现比较丑陋。
+* 通过 Linux 命令统计 `auth.log` 日志, 实现比较丑陋。
