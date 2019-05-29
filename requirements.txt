@@ -1,18 +1,18 @@
-aniso8601==3.0.2
-certifi==2018.4.16
+aniso8601==6.0.0
+certifi==2019.3.9
 chardet==3.0.4
-click==6.7
-flask-restful==0.3.6
-flask==1.0.2
+click==7.0; python_version != "3.2.*"
+flask-restful==0.3.7
+flask==1.0.3; python_version != "3.2.*"
 geoip2==2.9.0
-idna==2.7
-itsdangerous==0.24
-jinja2==2.10
-markupsafe==1.0
+idna==2.8
+itsdangerous==1.1.0; python_version != "3.2.*"
+jinja2==2.10.1; python_version != "3.2.*"
+markupsafe==1.1.1
 maxminddb==1.4.1
-psutil==5.4.6
-pytz==2018.5
-requests==2.20.0
-six==1.11.0
-urllib3==1.23
-werkzeug==0.14.1
+psutil==5.6.2
+pytz==2019.1
+requests==2.22.0
+six==1.12.0
+urllib3==1.25.3; python_version != "3.2.*"
+werkzeug==0.15.4

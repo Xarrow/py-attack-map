@@ -81,8 +81,11 @@ def generate_geojson_for_mapbox(raw_data_list: list):
         count = count_and_ip[0]
         ip = count_and_ip[1]
         future = pool.submit(query_city_from_geolite, (ip))
-        response = future.result()
-
+        try:
+            response = future.result()
+        except Exception as ex:
+            logger.error("{ip}, Address is not in GeoDatabase".format(ip=ip))
+            continue
         country_name = response.country.name or "UNKNOWN"
         country_chinese_name = '未知'
         if response.country is not None and response.country.names.get('zh-CN') is not None:
@@ -127,8 +130,14 @@ def map_box_template():
 api.add_resource(PyAttackMapBox, '/pyAttackMapBox')
 
 
-def cli():
-    py_attack_map_version = '1.0 🐱'
+def gunicornApp(file:str ="/var/log/auth.log"):
+    """ just for gunicorn"""
+    global AUTH_FILE_PATH
+    AUTH_FILE_PATH = file
+    return app
+
+def cli()->None:
+    py_attack_map_version = u'\U0001f40d '+'1.1'
     py_attack_map_author = 'Helixcs'
     py_attack_map_name = 'Py Attack Map'
     py_attack_map_desc = py_attack_map_name + "\t" + 'Author: ' + py_attack_map_author
@@ -140,8 +149,10 @@ def cli():
     args = parser.parse_args()
     global AUTH_FILE_PATH
     AUTH_FILE_PATH = args.file
-    app.run(debug=args.debug, port=args.port)
-
+    if AUTH_FILE_PATH=="" or not os.path.exists(AUTH_FILE_PATH):
+        print("auth.log is not exist!")
+        return
+    app.run(debug=args.debug, port=args.port,host="127.0.0.1" if args.debug else "0.0.0.0")
 
 if __name__ == '__main__':
     cli()

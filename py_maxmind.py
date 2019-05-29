@@ -9,7 +9,7 @@
 """
 import geoip2.database as GeoIp2DB
 
-reader = GeoIp2DB.Reader('GeoLite2-City_20180703/GeoLite2-City.mmdb')
+reader = GeoIp2DB.Reader('GeoLite2-City_20190528/GeoLite2-City.mmdb')
 
 
 def query_city_from_geolite(ip: str) -> GeoIp2DB.Reader:
