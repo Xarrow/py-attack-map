@@ -46,11 +46,14 @@
       L.mapbox.accessToken = 'pk.eyJ1IjoiaGVsaXhjc3BvIiwiYSI6ImNqanZvejY3bzUwb3ozcXJta3VqZmF5ZTYifQ.bcvgt7SFOPKFXcOWe8u1iA';
       var mapPopups = L.mapbox.map('map-popups', 'mapbox.dark').setView([-10.702943, 50.729125], 2);
       var myLayer = L.mapbox.featureLayer().addTo(mapPopups);
-      fetch(new Request("/pyAttackMapBox")).then((res) => {
-        res.json().then((jsonData) => {
-          myLayer.setGeoJSON(jsonData)
-        })
-      });
+
+      setInterval(() => {
+        fetch(new Request("/pyAttackMapBox")).then((res) => {
+          res.json().then((jsonData) => {
+            myLayer.setGeoJSON(jsonData)
+          })
+        });
+      }, 5000) // 每隔 5s 刷新
     })
   </script>
 </body>
