@@ -42,17 +42,21 @@
   <div id='map-popups' class='map'>
   </div>
   <script>
-    window.addEventListener("load", (event) => {
-      L.mapbox.accessToken = 'pk.eyJ1IjoiaGVsaXhjc3BvIiwiYSI6ImNqanZvejY3bzUwb3ozcXJta3VqZmF5ZTYifQ.bcvgt7SFOPKFXcOWe8u1iA';
-      var mapPopups = L.mapbox.map('map-popups', 'mapbox.dark').setView([-10.702943, 50.729125], 2);
-      var myLayer = L.mapbox.featureLayer().addTo(mapPopups);
+    L.mapbox.accessToken = 'pk.eyJ1IjoiaGVsaXhjc3BvIiwiYSI6ImNqanZvejY3bzUwb3ozcXJta3VqZmF5ZTYifQ.bcvgt7SFOPKFXcOWe8u1iA';
+    const mapPopups = L.mapbox.map('map-popups', 'mapbox.dark').setView([-10.702943, 50.729125], 2);
+    const myLayer = L.mapbox.featureLayer().addTo(mapPopups);
 
+    const renderData = () => {
+      fetch(new Request("/pyAttackMapBox")).then((res) => {
+        res.json().then((jsonData) => {
+          myLayer.setGeoJSON(jsonData)
+        })
+      });
+    }
+    window.addEventListener("load", (event) => {
+      renderData();
       setInterval(() => {
-        fetch(new Request("/pyAttackMapBox")).then((res) => {
-          res.json().then((jsonData) => {
-            myLayer.setGeoJSON(jsonData)
-          })
-        });
+        renderData();
       }, 5000) // 每隔 5s 刷新
     })
   </script>
