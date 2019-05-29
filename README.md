@@ -1,5 +1,7 @@
 # py_attack_map
 
+> 本项目只支持 Python3.6+ 版本
+
 ----
 
 因为之前买的一个 Vultr VPS 一直遭到 SSH 暴力破解，也是够烦人。你们尽管猜，猜出来算我输！
@@ -48,6 +50,31 @@ optional arguments:
 ```python
     python py_attack_map.py -f /var/log/auth.log 
 ```
+
+### 3. gunicorn 运行
+
+```bash
+gunicorn -w [worker count] -b [bind port] 'py_attack_map:gunicornApp([file="auth log path(default '/var/log/auth.log')"])'
+
+```
+
+例如：
+
+auth.log 日志位于 /var/log/auth.log , gunicorn 绑定 6789端口;
+```
+gunicorn -b 0.0.0.0:6789 'py_attack_map:gunicornApp(file="/var/log/auth.log")'
+```
+
+auth.log 日志位于 /var/log/auth.log , gunicorn 绑定 6789端口 ,使用 4 个进程;
+```
+gunicorn -w 4 -b 0.0.0.0:6789 'py_attack_map:gunicornApp(file="/var/log/auth.log")'
+```
+
+auth.log 日志位于 /var/log/auth.log , gunicorn 绑定 6789端口,使用 4 个进程,后台运行;
+```
+gunicorn -b 0.0.0.0:6789 -w 4 --daemon 'py_attack_map:gunicornApp(file="/var/log/auth.log")'
+```
+
 
 浏览器访问 `http://127.0.0.1:6789/attack_map_view`,默认`6789`端口；
 
